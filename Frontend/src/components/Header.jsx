@@ -1,8 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Header = ({ formFields }) => {
   const keys = Object.keys(formFields || {}).filter(key => key !== 'CheckBox');
-  
+
+  const navigate = useNavigate();
+
   // 1. Text fields progress
   const textFields = keys.filter(key => formFields[key].type !== 'checkbox');
   const filledTextCount = textFields.filter(key => formFields[key].filled).length;
@@ -10,7 +13,7 @@ const Header = ({ formFields }) => {
   // 2. Checkbox groups progress (A group is filled if at least 1 checkbox inside it is checked)
   const checkboxKeys = keys.filter(key => formFields[key].type === 'checkbox');
   const prefixes = formFields.CheckBox ? Object.values(formFields.CheckBox) : [];
-  
+
   const filledGroups = new Set();
   checkboxKeys.forEach(key => {
     if (formFields[key].filled) {
@@ -21,7 +24,7 @@ const Header = ({ formFields }) => {
   });
 
   const totalGroupsCount = prefixes.length;
-  
+
   // 3. Final calculations
   const totalItems = textFields.length + totalGroupsCount;
   const filledItems = filledTextCount + filledGroups.size;
@@ -48,8 +51,8 @@ const Header = ({ formFields }) => {
             <span className="text-[9px] uppercase tracking-widest text-white font-bold">{filledItems}/{totalItems || 21}</span>
           </div>
           <div className="h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden border border-zinc-600">
-            <div 
-              className="h-full bg-white rounded-full shadow-[0_0_10px_rgba(255,255,255,0.5)] transition-all duration-500 ease-out" 
+            <div
+              className="h-full bg-white rounded-full shadow-[0_0_10px_rgba(255,255,255,0.5)] transition-all duration-500 ease-out"
               style={{ width: `${progressPercent}%` }}
             ></div>
           </div>
@@ -59,7 +62,7 @@ const Header = ({ formFields }) => {
             Save
           </button>
 
-          <button className="px-4 py-1.5 bg-zinc-900 border border-zinc-600 text-white text-[11px] uppercase tracking-wider font-bold rounded-sm hover:bg-zinc-800 transition-colors">
+          <button onClick={() => navigate('/')} className="px-4 py-1.5 bg-zinc-900 border border-zinc-600 text-white text-[11px] uppercase tracking-wider font-bold rounded-sm hover:bg-zinc-800 transition-colors">
             Exit
           </button>
         </div>

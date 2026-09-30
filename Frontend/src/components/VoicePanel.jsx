@@ -3,7 +3,7 @@ import { Mic, MicOff } from 'lucide-react';
 import { useAudioPlayback } from '../hooks/useAudioPlayback';
 import { useGeminiLive } from '../hooks/useGeminiLive';
 import { useAudioRecorder } from '../hooks/useAudioRecorder';
-import { LiveWaveform } from './LiveWaveform';
+import { LiveWaveform } from './Livewaveform';
 
 const VoicePanel = ({ onFieldFilled, formFields }) => {
 
@@ -84,9 +84,9 @@ const VoicePanel = ({ onFieldFilled, formFields }) => {
 
         {/* Real-time Audio Waveform */}
         <div className="bg-zinc-900 border border-zinc-600 rounded-xl h-40 flex items-center justify-center gap-1 overflow-hidden px-6 relative mb-5 shrink-0">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-size-[24px_24px]"></div>
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-size-[24px_24px] "></div>
 
-          {isRecording ? <LiveWaveform active={true} mode="static" height="100%" sensitivity={1.2} /> : <LiveWaveform active={false} mode="dynamic" height="100%" sensitivity={1.2} />}
+          {isRecording ? <LiveWaveform className="w-full mx-auto flex justify-center items-center" active={true} mode="static" height="100%" sensitivity={1.2} /> : <LiveWaveform className="w-full mx-auto flex justify-center items-center" active={false} mode="dynamic" height="100%" sensitivity={1.2} />}
 
         </div>
 

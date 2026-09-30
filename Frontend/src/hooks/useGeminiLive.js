@@ -24,7 +24,7 @@ export const useGeminiLive = ({ onFieldFilled, onAudioReceived, formFields }) =>
         if (!data?.token) throw new Error("Ephemeral token missing from backend response");
         liveTokenRef.current = data.token;
         // before Google lets you talk to Gemini 
-        // a token (VIP pass) is generated in the backend and is needed to 
+        // a ephemeral token(VIP pass) is generated in the backend and is needed to 
         // to talk to Gemini
 
         const wsUrl =
@@ -327,17 +327,3 @@ export const useGeminiLive = ({ onFieldFilled, onAudioReceived, formFields }) =>
   return { connect, disconnect, sendAudioChunk, messages, wsState };
 };
 
-
-//                   1. Student's Name
-// 2. Father's Name
-// 3. Caste
-// 4. Occupation
-// 5. Qualification
-// 6. Income
-// 7. Date of Birth
-// 8. Class for admission
-// 9. Admission fee
-// 10. Tuition fee
-// 11. Signature of father or Guardian
-// 12. Temporary Address
-// 13. Permanent Address

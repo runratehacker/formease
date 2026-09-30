@@ -1,20 +1,17 @@
 import { GoogleGenAI } from "@google/genai";
 
 
-
-
-
 export async function createLiveEphemeralToken(req, res) {
 
-    const client = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY,
-    });
+  const client = new GoogleGenAI({
+    apiKey: process.env.GEMINI_API_KEY,
+  });
 
-    if (!process.env.GEMINI_API_KEY) {
-        return res.status(500).json({
-    error: "Missing GEMINI_API_KEY in Backend/.env",
+  if (!process.env.GEMINI_API_KEY) {
+    return res.status(500).json({
+      error: "Missing GEMINI_API_KEY in Backend/.env",
     });
-    }
+  }
   try {
     const expireTime = new Date(Date.now() + 30 * 60 * 1000).toISOString();
     const newSessionExpireTime = new Date(Date.now() + 60 * 1000).toISOString();

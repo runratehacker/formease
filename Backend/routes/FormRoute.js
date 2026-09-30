@@ -1,13 +1,12 @@
 import express from 'express';
-import formController from '../controllers/formController.js';
-// import { fillForm } from '../controllers/downloadAdmissionController.js';
-import { fillForm } from '../controllers/downloadSBI2Controller.js';
+import { getFormFields } from '../controllers/formController.js';
+import { getFormController, getAllForms } from '../controllers/formController.js';
 
 
 const router = express.Router();
 
-router.get('/fields/:formid', 
-    formController.getFormFields);
-router.post('/download/:formid', fillForm);
+router.get('/forms', getAllForms);
+router.get('/fields/:formid', getFormFields);
+router.post('/download/:formid', getFormController);
 
 export default router;

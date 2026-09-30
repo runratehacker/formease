@@ -4,10 +4,13 @@ import FormFieldRow from './FormFieldRow';
 import CheckboxGroupRow from './CheckboxGroupRow';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { useForm } from '../hooks/useForm'
 
 const FormReviewPanel = ({ formFields }) => {
 
   const prevFormFieldsRef = useRef();
+
+  const { forms } = useForm()
 
   // Helper to get group name
   const getGroupInfo = (label) => {
@@ -81,8 +84,11 @@ const FormReviewPanel = ({ formFields }) => {
       // 4. Create an invisible <a> tag and click it to trigger the download
       const downloadLink = document.createElement('a');
       downloadLink.href = blobUrl;
-      downloadLink.download = 'filled_admission.pdf'; // The filename
+      // Determine filename based on formid
+      const selectedForm = forms.find(form => form.id === formid);
+      const filename = selectedForm && selectedForm.filename ? selectedForm.filename : 'filled_form.pdf';
 
+      downloadLink.download = filename; // The dynamic filename
 
       document.body.appendChild(downloadLink);
       downloadLink.click();
@@ -119,8 +125,8 @@ const FormReviewPanel = ({ formFields }) => {
           Object.keys(formFields).forEach(key => {
             if (key === 'CheckBox') return; // Skip metadata key
 
-            if(key === 'Instruction') return
-            
+            if (key === 'Instruction') return
+
             const field = formFields[key];
             if (field.type === 'checkbox') {
               const { groupName, shortLabel } = getGroupInfo(field.label);
